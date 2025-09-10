@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rupesh Jethwa | Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* New subtle pattern for the background */
+        body.light .bg-subtle-pattern {
+            background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        body.dark .bg-subtle-pattern {
+            background-image: radial-gradient(#4b5563 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        /* Simple CSS for the mobile menu slide-down animation */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        #mobile-menu.open {
+            max-height: 500px; /* Adjust as needed, just needs to be large enough to show all content */
+            opacity: 1;
+        }
+
+        /* Flipping Card CSS */
+        .flip-card {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 1.5rem; /* rounded-3xl */
+            padding: 1.5rem; /* p-6 */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        
+        /* New Styles for Hover and Active Effects */
+        .skill-card:hover, .flip-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .skill-card, .flip-card {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* Active/Click effect */
+        .outline-active {
+            box-shadow: 0 10px 15px -3px rgb(79 70 229 / 0.5), 0 4px 6px -2px rgb(79 70 229 / 0.5) !important;
+            outline: 2px solid theme('colors.indigo.600');
+            outline-offset: 2px;
+        }
+
+        /* Focus state for keyboard navigation */
+        .flip-card:focus, .skill-card:focus {
+            outline: 2px solid theme('colors.indigo.600');
+            outline-offset: 2px;
+        }
+    </style>
+    <!-- Typed.js Library for the typing effect -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+</head>
+
+<body
+    class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-500 bg-subtle-pattern">
+    <!-- Header Section -->
+    <header class="bg-white dark:bg-gray-800 shadow-xl sticky top-0 z-50 rounded-b-3xl transition-colors duration-500">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-3xl font-bold text-indigo-600 dark:text-indigo-400">Rupesh Jethwa</h1>
+            <nav class="flex items-center space-x-4 md:space-x-6">
+                <!-- Desktop Navigation Links -->
+                <ul class="hidden md:flex space-x-6 text-gray-600 dark:text-gray-400 font-medium text-sm md:text-base">
+                    <li><a href="#about"
+                            class="hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">About</a>
+                    </li>
+                    <li><a href="#experience"
+                            class="hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">Experience</a>
+                    </li>
+                    <li><a href="#skills"
+                            class="hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">Skills</a>
+                    </li>
+                    <li><a href="#contact"
+                            class="hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">Contact</a>
+                    </li>
+                </ul>
+                <!-- Mobile Menu Button (Hamburger) -->
+                <button id="mobile-menu-toggle"
+                    class="md:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-menu">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+                <!-- Theme Toggle Button -->
+                <!-- <button id="theme-toggle"
+                    class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300">
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-sun text-gray-800 dark:text-gray-100 hidden">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-moon text-gray-800 dark:text-gray-100">
+                        <path d="M12 3a6.5 6.5 0 1 0 6.5 6.5A4.6 4.6 0 0 1 12 3z" />
+                    </svg>
+                </button> -->
+            </nav>
+        </div>
+        <!-- Mobile Menu Container -->
+        <div id="mobile-menu" class="md:hidden bg-white dark:bg-gray-800 transition-all duration-300">
+            <ul class="flex flex-col items-center py-4 space-y-2 text-gray-600 dark:text-gray-400 font-medium">
+                <li><a href="#about"
+                        class="block w-full text-center py-2 hover:text-indigo-600 dark:hover:text-indigo-400">About</a>
+                </li>
+                <li><a href="#experience"
+                        class="block w-full text-center py-2 hover:text-indigo-600 dark:hover:text-indigo-400">Experience</a>
+                </li>
+                <li><a href="#skills"
+                        class="block w-full text-center py-2 hover:text-indigo-600 dark:hover:text-indigo-400">Skills</a>
+                </li>
+                <li><a href="#contact"
+                        class="block w-full text-center py-2 hover:text-indigo-600 dark:hover:text-indigo-400">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!-- Main Content Container -->
+    <main class="container mx-auto px-4 md:px-6 py-8 md:py-16 max-w-6xl">
+        <!-- About Section - Creative Layout -->
+        <section id="about"
+            class="bg-white dark:bg-gray-800 p-6 md:p-10 rounded-3xl shadow-2xl mb-8 md:mb-16 transition-colors duration-500">
+            <div class="md:flex md:items-center md:space-x-12">
+                <!-- Placeholder for profile photo -->
+                <div class="flex-shrink-0 mb-6 md:mb-0 transform hover:scale-105 transition-transform duration-300">
+                    <img src="./profile.jpg" alt="Rupesh Jethwa's profile photo"
+                        class="rounded-full w-40 h-40 md:w-64 md:h-64 object-cover shadow-2xl mx-auto border-4 border-indigo-600 dark:border-indigo-400 p-1">
+                </div>
+                <div class="text-center md:text-left">
+                    <h2 class="text-2xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-2">Hello, I'm Rupesh
+                        Jethwa</h2>
+                    <!-- Element for the Typed.js animation -->
+                    <p class="text-base md:text-2xl font-semibold mb-4 md:mb-6 text-indigo-600 dark:text-indigo-400">
+                        <span id="typed-element"></span></p>
+                    <p class="text-sm md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                        With over 22 years of experience in the IT/Telecom services industry, I specialize in IT service
+                        management, ITIL, SDLC, and ServiceNow. I am a highly skilled professional with expertise in
+                        proposal preparation, bid management, project estimation, and providing the best product
+                        solutions. I am currently a Senior Solution Architect at Globant India Pvt. Ltd., focused on
+                        project delivery, generating new opportunities, and leading ServiceNow implementations.
+                    </p>
+                    <a href="#"
+                        class="mt-6 md:mt-8 inline-block bg-indigo-600 text-white font-semibold py-3 px-6 md:py-4 md:px-8 rounded-full shadow-lg hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-500 transition duration-300 transform hover:scale-105 text-sm md:text-base">
+                        Download My Resume
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience"
+            class="bg-white dark:bg-gray-800 p-6 md:p-10 rounded-3xl shadow-2xl mb-8 md:mb-16 transition-colors duration-500">
+            <h2
+                class="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 text-center border-b-2 border-indigo-600 dark:border-indigo-400 pb-4">
+                Experience</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Globant -->
+                <div class="flip-card h-80" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front flex flex-col justify-center items-center text-center ">
+                            <img src="https://media.licdn.com/dms/image/v2/D4D0BAQHupr1U3gIQKA/company-logo_200_200/company-logo_200_200/0/1719839010650/globant_logo?e=2147483647&v=beta&t=RIDw8vIPTT21rNVDzZuUuMXaZiSCvhv7AUbYUrX8AnM"
+                                alt="Globant Logo"
+                                class="w-24 h-24 rounded-full p-2 border-2 border-indigo-600 dark:border-indigo-400 mb-4 bg-white dark:bg-gray-900 object-contain">
+                            <h3 class="text-lg md:text-2xl font-semibold text-indigo-600 dark:text-indigo-400">Sr.
+                                Solution Architect</h3>
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">Globant India Pvt. Ltd.</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">May 2021 - Present</p>
+                            <button
+                                class="flip-btn mt-4 bg-indigo-600 text-white py-2 px-4 rounded-full text-sm hover:bg-indigo-700 transition duration-300">Read
+                                more</button>
+                        </div>
+                        <div class="flip-card-back flex flex-col items-start justify-center text-left p-6">
+                            <p
+                                class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed overflow-y-auto">
+                                I am involved in project delivery as a Sr. Architect, responsible for end-to-end project
+                                delivery for firms like Deloitte, Shell, and PepsiCo. I contribute to RFPs and
+                                proposals, manage project transitions, and lead hackathons for innovative ideas. I am
+                                also responsible for providing value addition to existing and new clients to drive new
+                                business.
+                            </p>
+                            <button
+                                class="flip-btn mt-4 bg-gray-500 text-white py-2 px-4 rounded-full text-sm hover:bg-gray-600 transition duration-300">Back</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Capgemini -->
+                <div class="flip-card h-80" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front flex flex-col justify-center items-center text-center">
+                            <img src="https://1000logos.net/wp-content/uploads/2021/08/Capgemini-Emblem.png"
+                                alt="Capgemini Logo"
+                                class="w-24 h-24 rounded-full p-2 border-2 border-indigo-600 dark:border-indigo-400 mb-4 bg-white dark:bg-gray-900 object-contain">
+                            <h3 class="text-lg md:text-2xl font-semibold text-indigo-600 dark:text-indigo-400">Sr.
+                                Manager</h3>
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">Capgemini India</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Jan 2020 - Apr 2021</p>
+                            <button
+                                class="flip-btn mt-4 bg-indigo-600 text-white py-2 px-4 rounded-full text-sm hover:bg-indigo-700 transition duration-300">Read
+                                more</button>
+                        </div>
+                        <div class="flip-card-back flex flex-col items-start justify-center text-left p-6">
+                            <p
+                                class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed overflow-y-auto">
+                                Managed the migration of over 140 customers from Remedy to ServiceNow as a Sr. Manager.
+                                My responsibilities included running migration kick-offs, preparing project plans,
+                                managing the implementation team, and communicating with clients for new development and
+                                value-added solutions.
+                            </p>
+                            <button
+                                class="flip-btn mt-4 bg-gray-500 text-white py-2 px-4 rounded-full text-sm hover:bg-gray-600 transition duration-300">Back</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zensar Technologies -->
+                <div class="flip-card h-80" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front flex flex-col justify-center items-center text-center">
+                            <img src="https://media.licdn.com/dms/image/v2/C4D0BAQFls229vaDjDg/company-logo_200_200/company-logo_200_200/0/1657181507521/zensar_logo?e=2147483647&v=beta&t=R5Au3fRqoYJY_7MFE3oEMDtL1E9uffNiitMuuLwStKg"
+                                alt="Zensar Technologies Logo"
+                                class="w-24 h-24 rounded-full p-2 border-2 border-indigo-600 dark:border-indigo-400 mb-4 bg-white dark:bg-gray-900 object-contain">
+                            <h3 class="text-lg md:text-2xl font-semibold text-indigo-600 dark:text-indigo-400">Practice
+                                Lead</h3>
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">Zensar Technologies</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Aug 2019 - Jan 2020</p>
+                            <button
+                                class="flip-btn mt-4 bg-indigo-600 text-white py-2 px-4 rounded-full text-sm hover:bg-indigo-700 transition duration-300">Read
+                                more</button>
+                        </div>
+                        <div class="flip-card-back flex flex-col items-start justify-center text-left p-6">
+                            <p
+                                class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed overflow-y-auto">
+                                Involved in the ServiceNow practice as a Solution Architect, providing best practices
+                                and consultation across various tools. My role included managing implementation teams,
+                                providing value-added solutions, and gathering requirements for projects like EBRD,
+                                Value Retail, and AirBus.
+                            </p>
+                            <button
+                                class="flip-btn mt-4 bg-gray-500 text-white py-2 px-4 rounded-full text-sm hover:bg-gray-600 transition duration-300">Back</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSS Corp (ServiceNow Solutions Architect) -->
+                <div class="flip-card h-80" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front flex flex-col justify-center items-center text-center">
+                            <img src="https://media.licdn.com/dms/image/v2/D560BAQHBAE0k5s6B0g/company-logo_200_200/company-logo_200_200/0/1663763859074/movate_logo?e=2147483647&v=beta&t=ivIPVr7Jc4trBZ64p_rhBjR_DrtaIIyWcVZHMR9F1N8"
+                                alt="CSS Corp Logo"
+                                class="w-24 h-24 rounded-full p-2 border-2 border-indigo-600 dark:border-indigo-400 mb-4 bg-white dark:bg-gray-900 object-contain">
+                            <h3 class="text-lg md:text-2xl font-semibold text-indigo-600 dark:text-indigo-400">
+                                ServiceNow Solutions Architect</h3>
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">CSS Corp</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Mar 2017 - Aug 2019</p>
+                            <button
+                                class="flip-btn mt-4 bg-indigo-600 text-white py-2 px-4 rounded-full text-sm hover:bg-indigo-700 transition duration-300">Read
+                                more</button>
+                        </div>
+                        <div class="flip-card-back flex flex-col items-start justify-center text-left p-6">
+                            <p
+                                class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed overflow-y-auto">
+                                As a ServiceNow Solutions Architect, I managed ServiceNow implementation teams for
+                                projects with Unilever, HPNaaS, and Aruba Networking. I designed and developed new
+                                self-service and customer service portals, oversaw third-party integrations, and defined
+                                SCRUM stories for project execution.
+                            </p>
+                            <button
+                                class="flip-btn mt-4 bg-gray-500 text-white py-2 px-4 rounded-full text-sm hover:bg-gray-600 transition duration-300">Back</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wipro Ltd. -->
+                <div class="flip-card h-80" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front flex flex-col justify-center items-center text-center">
+                            <img src="https://media.licdn.com/dms/image/v2/D4E0BAQEINH3Vf1swig/company-logo_200_200/company-logo_200_200/0/1730379480485/wipro_logo?e=2147483647&v=beta&t=VMLnSQsmRaLpoImk28pdUJcjsGxbOPaNMs0zDi196m4"
+                                alt="Wipro Logo"
+                                class="w-24 h-24 rounded-full p-2 border-2 border-indigo-600 dark:border-indigo-400 mb-4 bg-white dark:bg-gray-900 object-contain">
+                            <h3 class="text-lg md:text-2xl font-semibold text-indigo-600 dark:text-indigo-400">Solutions
+                                Architect</h3>
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">Wipro Ltd.</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Aug 2016 - 2017</p>
+                            <button
+                                class="flip-btn mt-4 bg-indigo-600 text-white py-2 px-4 rounded-full text-sm hover:bg-indigo-700 transition duration-300">Read
+                                more</button>
+                        </div>
+                        <div class="flip-card-back flex flex-col items-start justify-center text-left p-6">
+                            <p
+                                class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed overflow-y-auto">
+                                I was responsible for providing technical solutions and architectural guidance to meet
+                                client requirements. I managed a 24/7 support team for a major telco client, overseeing
+                                project planning, client communication, and team management.
+                            </p>
+                            <button
+                                class="flip-btn mt-4 bg-gray-500 text-white py-2 px-4 rounded-full text-sm hover:bg-gray-600 transition duration-300">Back</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSS Corp (Solutions Architect) -->
+                <div class="flip-card h-80" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front flex flex-col justify-center items-center text-center">
+                            <img src="https://media.licdn.com/dms/image/v2/D560BAQHBAE0k5s6B0g/company-logo_200_200/company-logo_200_200/0/1663763859074/movate_logo?e=2147483647&v=beta&t=ivIPVr7Jc4trBZ64p_rhBjR_DrtaIIyWcVZHMR9F1N8"
+                                alt="CSS Corp Logo"
+                                class="w-24 h-24 rounded-full p-2 border-2 border-indigo-600 dark:border-indigo-400 mb-4 bg-white dark:bg-gray-900 object-contain">
+                            <h3 class="text-lg md:text-2xl font-semibold text-indigo-600 dark:text-indigo-400">Solutions
+                                Architect</h3>
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">CSS Corp</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Aug 2015 - Aug 2016</p>
+                            <button
+                                class="flip-btn mt-4 bg-indigo-600 text-white py-2 px-4 rounded-full text-sm hover:bg-indigo-700 transition duration-300">Read
+                                more</button>
+                        </div>
+                        <div class="flip-card-back flex flex-col items-start justify-center text-left p-6">
+                            <p
+                                class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed overflow-y-auto">
+                                In this role, I focused on providing technical solutions and architectural guidance. I
+                                was responsible for designing and implementing solutions that met client requirements
+                                and business objectives.
+                            </p>
+                            <button
+                                class="flip-btn mt-4 bg-gray-500 text-white py-2 px-4 rounded-full text-sm hover:bg-gray-600 transition duration-300">Back</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- L&T Infotech -->
+                <div class="flip-card h-80" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front flex flex-col justify-center items-center text-center">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwSyAP3qkw9bjJJtablmarhLVMGhJz0-wumHYufz-mhTW5UB_NGv3kg0769vORGs_gGHk&usqp=CAU"
+                                alt="L&T Infotech Logo"
+                                class="w-24 h-24 rounded-full p-2 border-2 border-indigo-600 dark:border-indigo-400 mb-4 bg-white dark:bg-gray-900 object-contain">
+                            <h3 class="text-lg md:text-2xl font-semibold text-indigo-600 dark:text-indigo-400">Sr.
+                                System Engineer</h3>
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">L&T Infotech</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Sep 2013 - Mar 2015</p>
+                            <button
+                                class="flip-btn mt-4 bg-indigo-600 text-white py-2 px-4 rounded-full text-sm hover:bg-indigo-700 transition duration-300">Read
+                                more</button>
+                        </div>
+                        <div class="flip-card-back flex flex-col items-start justify-center text-left p-6">
+                            <p
+                                class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed overflow-y-auto">
+                                As a Senior System Engineer, I was responsible for various roles including project
+                                planning, design, and implementation for projects with clients like Citibank and ANZ
+                                Bank.
+                            </p>
+                            <button
+                                class="flip-btn mt-4 bg-gray-500 text-white py-2 px-4 rounded-full text-sm hover:bg-gray-600 transition duration-300">Back</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orange Business Services -->
+                <div class="flip-card h-80" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front flex flex-col justify-center items-center text-center">
+                            <img src="https://mms.businesswire.com/media/20250709763522/en/2517724/5/Orange_logo.jpg"
+                                alt="Orange Business Services Logo"
+                                class="w-24 h-24 rounded-full p-2 border-2 border-indigo-600 dark:border-indigo-400 mb-4 bg-white dark:bg-gray-900 object-contain">
+                            <h3 class="text-lg md:text-2xl font-semibold text-indigo-600 dark:text-indigo-400">Sr.
+                                System Engineer</h3>
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">Orange Business Services
+                            </p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Feb 2007 - Sep 2013</p>
+                            <button
+                                class="flip-btn mt-4 bg-indigo-600 text-white py-2 px-4 rounded-full text-sm hover:bg-indigo-700 transition duration-300">Read
+                                more</button>
+                        </div>
+                        <div class="flip-card-back flex flex-col items-start justify-center text-left p-6">
+                            <p
+                                class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed overflow-y-auto">
+                                I was involved in project management for various clients, including providing product
+                                and customer service support for a major telco client.
+                            </p>
+                            <button
+                                class="flip-btn mt-4 bg-gray-500 text-white py-2 px-4 rounded-full text-sm hover:bg-gray-600 transition duration-300">Back</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CMC Ltd. -->
+                <div class="flip-card h-80" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front flex flex-col justify-center items-center text-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e7/CMC_logo.svg/250px-CMC_logo.svg.png"
+                                alt="CMC Ltd. Logo"
+                                class="w-24 h-24 rounded-full p-2 border-2 border-indigo-600 dark:border-indigo-400 mb-4 bg-white dark:bg-gray-900 object-contain">
+                            <h3 class="text-lg md:text-2xl font-semibold text-indigo-600 dark:text-indigo-400">Database
+                                Administrator</h3>
+                            <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">CMC Ltd.</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Dec 2000 - Feb 2007</p>
+                            <button
+                                class="flip-btn mt-4 bg-indigo-600 text-white py-2 px-4 rounded-full text-sm hover:bg-indigo-700 transition duration-300">Read
+                                more</button>
+                        </div>
+                        <div class="flip-card-back flex flex-col items-start justify-center text-left p-6">
+                            <p
+                                class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed overflow-y-auto">
+                                As a Database Administrator, I was responsible for the design, configuration, and
+                                administration of databases for various projects. My role included database creation,
+                                backup, recovery, and providing technical support to ensure smooth operations.
+                            </p>
+                            <button
+                                class="flip-btn mt-4 bg-gray-500 text-white py-2 px-4 rounded-full text-sm hover:bg-gray-600 transition duration-300">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills Section -->
+        <section id="skills"
+            class="bg-white dark:bg-gray-800 p-6 md:p-10 rounded-3xl shadow-2xl mb-8 md:mb-16 transition-colors duration-500">
+            <h2
+                class="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 text-center border-b-2 border-indigo-600 dark:border-indigo-400 pb-4">
+                Technical Qualifications</h2>
+            <!-- ITSM Platforms -->
+            <div class="mb-8">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">ITSM Platforms</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 lg:gap-6">
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi9azji1P3eHGE-4K5f_uogVJk8glXpar_cg&s"
+                            alt="ServiceNow Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">ServiceNow</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">Remedy, HP Open
+                            View, CA</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Cloud -->
+            <div class="mb-8">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Cloud</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 lg:gap-6">
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/1200px-Amazon_Web_Services_Logo.svg.png"
+                            alt="AWS Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">AWS</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">Cloud Services</p>
+                    </div>
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://images.icon-icons.com/2699/PNG/512/microsoft_azure_logo_icon_170956.png"
+                            alt="Azure Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Azure</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">Cloud Services</p>
+                    </div>
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://cloud.google.com/_static/cloud/images/social-icon-google-cloud-1200-630.png"
+                            alt="GCP Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">GCP</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">Cloud Services</p>
+                    </div>
+                </div>
+            </div>
+            <!-- CRM -->
+            <div class="mb-8">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">CRM</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 lg:gap-6">
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/640px-Salesforce.com_logo.svg.png"
+                            alt="Salesforce Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Salesforce</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">Sales & Service
+                            Cloud</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Languages -->
+            <div class="mb-8">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Languages</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 lg:gap-6">
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://www.dmcinfo.com/wp-content/uploads/2025/04/image-115.png" alt=".NET Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">ASP .net</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">C#</p>
+                    </div>
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://download.logo.wine/logo/C%2B%2B/C%2B%2B-Logo.wine.png" alt="C/C++ Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">C/C++</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">Programming</p>
+                    </div>
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/1200px-Java_programming_language_logo.svg.png"
+                            alt="Java Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Core Java</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">Programming</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Databases -->
+            <div class="mb-8">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Databases</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 lg:gap-6">
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png"
+                            alt="SQL Server Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">SQL Server</p>
+                    </div>
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://logos-world.net/wp-content/uploads/2020/09/Oracle-Symbol.png"
+                            alt="Oracle Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Oracle</p>
+                    </div>
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://download.logo.wine/logo/MySQL/MySQL-Logo.wine.png"
+                            alt="Java Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">MySQL</p>
+                    </div>
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://download.logo.wine/logo/Microsoft_Access/Microsoft_Access-Logo.wine.png"
+                            alt="Java Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">MS Access</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Web Technologies -->
+            <div class="mb-8">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Web Technologies</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 lg:gap-6">
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png"
+                            alt="HTML/DHTML Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">HTML</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">DHTML</p>
+                    </div>
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png"
+                            alt="JavaScript Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">JavaScript</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Operating Systems -->
+            <div class="mb-8">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Operating Systems</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 lg:gap-6">
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://wallpapers.com/images/hd/classic-windows-logo-72bka335lvt8v1fb.jpg"
+                            alt="Windows NT Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Windows</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">Operating System
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Development Tools -->
+            <div class="mb-8">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Development Tools</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 lg:gap-6">
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <img src="https://1000logos.net/wp-content/uploads/2023/04/Visual-Studio-Logo-2019.png"
+                            alt="Visual Studio Logo"
+                            class="w-16 h-16 object-contain rounded-full border-2 border-indigo-600 dark:border-indigo-400 p-1 mb-2">
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Visual Studio</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">Crystal Reports</p>
+                    </div>
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-file-code text-indigo-600 dark:text-indigo-400 p-1 mb-2 rounded-full border-2 border-indigo-600 dark:border-indigo-400">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <path d="m10 13-2 2 2 2" />
+                            <path d="m14 17 2-2-2-2" />
+                        </svg>
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Crystal Reports</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">Reporting Tool</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Others -->
+            <div>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">Others</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 lg:gap-6">
+                    <div class="skill-card flex flex-col items-center justify-start text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                        tabindex="0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-clipboard-check text-indigo-600 dark:text-indigo-400 p-1 mb-2 rounded-full border-2 border-indigo-600 dark:border-indigo-400">
+                            <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                            <path d="m9 14 2 2 4-4" />
+                        </svg>
+                        <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Methodologies</p>
+                        <p class="text-[0.6rem] text-gray-500 dark:text-gray-400 mt-1 leading-tight">ITIL, SDLC, SCRUM
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact"
+            class="bg-white dark:bg-gray-800 p-6 md:p-10 rounded-3xl shadow-2xl text-center transition-colors duration-500">
+            <h2
+                class="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 border-b-2 border-indigo-600 dark:border-indigo-400 pb-4">
+                Let's Connect</h2>
+            <p class="text-sm md:text-base text-gray-700 dark:text-gray-300 mb-6 max-w-2xl mx-auto">I'm always open to
+                new opportunities and collaborations. Feel free to reach out to me via email or connect on social media.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="flex flex-col items-center">
+                    <a href="mailto:rupesh.jethwa@gmail.com"
+                        class="text-sm md:text-base text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/1280px-Gmail_icon_%282020%29.svg.png" width="24" height="24" md:width="32" md:height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+                            <rect width="20" height="16" x="2" y="4" rx="2" />
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                    </a>
+                    <a href="mailto:rupesh.jethwa@gmail.com"
+                        class="text-sm md:text-base text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">rupesh.jethwa@gmail.com</a>
+                </div>
+                <div class="flex flex-col items-center">
+                    <a href="tel:+919769103644" target="_blank">
+                        <img src="https://www.citypng.com/public/uploads/preview/hd-green-square-phone-icon-png-7017516950597582y4ltbrryl.png?v=2025090303" width="24" height="24" md:width="32" md:height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+                        
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.45 2.19-.11 4.54-1.72 6.13-.67.67-1.46 1.35-2.28 2.07l.25.25a19.79 19.79 0 0 0 8.63 3.07c2.19.45 4.54-.11 6.13-1.72.67-.67 1.35-1.46 2.07-2.28z" />
+                        
+                    </a>
+                    <a href="tel:+919769103644" target="_blank">
+                        <span class="text-sm md:text-base text-gray-700 dark:text-gray-300">+91 9769103644</span>
+                    </a>
+                </div>
+                <div class="flex flex-col items-center">
+                    <a href="https://www.google.com/maps/place/Pune,+Maharashtra" target="_blank">
+                        <img src="https://png.pngtree.com/png-clipart/20230425/original/pngtree-3d-location-icon-clipart-in-transparent-background-png-image_9095284.png" width="24" height="24" md:width="32" md:height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                            <circle cx="12" cy="9" r="3" />
+                        </svg>
+                    </a>
+                    <a href="https://www.google.com/maps/place/Pune,+Maharashtra" target="_blank">
+                        <span class="text-sm md:text-base text-gray-700 dark:text-gray-300">Pune, Maharashtra,
+                            India</span>
+                    </a>
+                </div>
+            </div>
+            <div class="flex justify-center space-x-4 md:space-x-6 mt-6 md:mt-8">
+                <div class="flex flex-col items-center">
+                    <a href="https://linkedin.com/in/rupesh-jethwa-b3447121" target="_blank"
+                        class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition duration-300"
+                        aria-label="LinkedIn">
+                        <img src="https://static.vecteezy.com/system/resources/previews/018/930/480/non_2x/linkedin-logo-linkedin-icon-transparent-free-png.png" width="30" height="30" md:width="32" md:height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2a2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                            <rect width="4" height="12" x="2" y="9" />
+                            <circle cx="4" cy="4" r="2" />
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/rupesh-jethwa-b3447121?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
+                        <span class="text-sm md:text-base text-gray-700 dark:text-gray-300">LinkedIn</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-gray-900 text-white text-center p-4 mt-8 transition-colors duration-500">
+        <p class="text-xs md:text-sm">&copy; 2025 Rupesh Jethwa. All rights reserved.</p>
+    </footer>
+    <!-- Script to initialize Typed.js -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            new Typed('#typed-element', {
+                strings: ['ServiceNow Project Manager', 'Technical Architect', 'Solutions Expert'],
+                typeSpeed: 60,
+                loop: true,
+                backDelay: 1500,
+                backSpeed: 40,
+            });
+        });
+    </script>
+    <!-- Script for Theme Toggle -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        // Function to set the theme
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                htmlElement.classList.add('dark');
+                document.body.classList.remove('light');
+                document.body.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                htmlElement.classList.remove('dark');
+                document.body.classList.remove('dark');
+                document.body.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        // Check for saved theme preference or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+        setTheme(initialTheme);
+        // Update icon based on current theme
+        function updateIcons() {
+            const isDark = htmlElement.classList.contains('dark');
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            if (isDark) {
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+        }
+        updateIcons();
+        themeToggle.addEventListener('click', () => {
+            const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
+            setTheme(newTheme);
+            updateIcons();
+        });
+    </script>
+    <!-- Script for Smooth Scrolling and Mobile Menu Toggle -->
+    <script>
+        // Smooth Scrolling Script
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Close the mobile menu if it's open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.remove('open');
+                }
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        // Mobile Menu Toggle Script
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+    </script>
+    <!-- Script for Card Flipping and Click Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Card Flipping Logic
+            const flipButtons = document.querySelectorAll('.flip-btn');
+            flipButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const card = button.closest('.flip-card');
+                    card.classList.toggle('flipped');
+                });
+            });
+
+            // Card Hover and Click Effect Logic
+            const interactiveCards = document.querySelectorAll('.flip-card, .skill-card');
+            interactiveCards.forEach(card => {
+                // Add a click event listener to each card
+                card.addEventListener('click', () => {
+                    // Remove the 'outline-active' class from all other cards
+                    interactiveCards.forEach(c => c.classList.remove('outline-active'));
+                    // Add the 'outline-active' class to the currently clicked card
+                    card.classList.add('outline-active');
+                });
+
+                // Add a keydown event listener for accessibility
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        // Remove the 'outline-active' class from all other cards
+                        interactiveCards.forEach(c => c.classList.remove('outline-active'));
+                        // Add the 'outline-active' class to the currently focused card
+                        card.classList.add('outline-active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
